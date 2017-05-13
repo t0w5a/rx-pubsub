@@ -32,7 +32,8 @@ might just include the js file into your html/page application:
 <script type="application/javascript" src="./node_modules/rx-pubsub/dist/rx-pubsub.min.js"></script>
 ```
 
-Create new RxPubSub object and use it.
+Create new RxPubSub object and use it.  
+  
 #### Example
 ```
 var pubsub = new RxPubSub(); // create new RxPubSub Object
