@@ -21,9 +21,9 @@ export as namespace RxPubSub;
  */
 declare namespace RxPubSub {
     export class RxPubSub {
-        public publish(eventName: string, data: any, previousMessagesNr: number): RxPubSub;
+        public publish(eventName: string, data: any, previousMessagesNr?: number): RxPubSub;
 
-        public subscribe(eventName: string, callback: (data?: any) => any, previousMessagesNr: number): any;
+        public subscribe(eventName: string, callback: (data?: any) => any, previousMessagesNr?: number): any;
 
         public subscribeOnce(eventName: string, callback: (data?: any) => any): any;
 
