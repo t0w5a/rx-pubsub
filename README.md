@@ -7,28 +7,26 @@ RxPubSub
 5. [Git repository](#git)
 6. [Version](#version)
 
-### <a name="description"></a>Description
-`rx-pubsub` of `RxPubSub` is a "Publish and Subscribe" service 
+### <a name="description"></a>1. Description
+`rx-pubsub` or `RxPubSub` is a "Publish and Subscribe" service 
 based on [RxJs ReplaySubject](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/replaysubject.md). 
 
-### <a name="installation"></a>Installation
+### <a name="installation"></a>2. Installation
 Install the module into your application and save it as a dev 
 dependency in your `package.json` file  
 ```
 npm install rx-pubsub --save-dev
 ```
 
-### <a name="usage"></a>Usage
+### <a name="usage"></a>3. Usage
 In order to use the `RxPubSub` service you have to include/import 
 it into your application:
 
 ```
 import {RxPubSub} from "rx-pubsub";
-//or
-var RxPubSub = require("rx-pubsub");
 ```
 
-If you want to use it in a plain/vanilla Javascript project the you 
+If you want to use it in a plain/vanilla Javascript project then you 
 might just include the js file into your html/page application:
 ```
 <script type="application/javascript" src="./node_modules/rx-pubsub/dist/rx-pubsub.min.js"></script>
@@ -78,7 +76,7 @@ register 3rd subscriber to the same event
 Object {testProp: "test Value"}
 ```
 
-### <a name="methods"></a>Methods
+### <a name="methods"></a>4. Methods
 
 #### publish(eventName: string, data: any, previousMessagesNr: number = 1)
 Publish data to an event  
@@ -91,7 +89,8 @@ buffer
   
 *Return:*  
 Method returns `RxPubSub` *this* object.
-
+  
+  
 #### subscribe(eventName: string, callback: (data?: any) => any, previousMessagesNr: number = 1)
 Register a new subscriber/callback to an event  
   
@@ -105,7 +104,8 @@ buffer
 *Return:*  
 Method returns Subscription if `callback` and `eventName` is 
 provided. **FALSE** if there is an error.
-
+  
+  
 #### subscribeOnce(eventName: string, callback: (data?: any) => any)
 Subscribe to an event only one single time.  
 After the first publish the Subscriber will be destroyed and 
@@ -121,7 +121,8 @@ buffer
 *Return:*  
 Method returns Subscription if `callback` and `eventName` is 
 provided. **FALSE** if there is an error.
-
+  
+  
 #### unsubscribe(subscriber: Subscription)
 Unsubscribe a Subscriber from the event.    
   
@@ -131,7 +132,8 @@ destroyed/unsubscribed
   
 *Return:*  
 Method returns `RxPubSub` *this* object.
-
+  
+  
 #### dispose(eventName: string)
 Unsubscribe all observers from the event and release resources. 
   
@@ -140,7 +142,8 @@ Unsubscribe all observers from the event and release resources.
   
 *Return:*  
 Method returns `RxPubSub` *this* object.
-
+  
+  
 #### hasSubscribers(eventName: string)
 Check if a Subject attached to the event `eventName` has 
 Subscribers.  
@@ -153,7 +156,8 @@ has Subscribers.
 Method returns `boolean`:  
 *true* - if there is at least one Subscriber  
 *false* - if there are no Subscribers at all
-
+  
+  
 #### getEvents()
 Retrieve the entire list of the events and 
 the Subjects attached to them.  
@@ -161,16 +165,18 @@ the Subjects attached to them.
 *Return:*  
 Method returns an `Object` which contains the list of the
 events and the Subjects attached to them.
-
+  
+  
 #### getSubjects()
 An alias for the `getEvents()` method.    
   
 *Return:*  
 Method returns an `Object` which contains the list of the
 events and the Subjects attached to them.
-
-### <a name="git"></a>Git repository
+  
+  
+### <a name="git"></a>5. Git repository
 [https://github.com/t0w5a/rx-pubsub](https://github.com/t0w5a/rx-pubsub)
 
-### <a name="version"></a>Version
+### <a name="version"></a>6. Version
 0.0.1
