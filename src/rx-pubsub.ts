@@ -47,7 +47,7 @@ export class RxPubSub {
      * After the first publish the Subscriber will be destroyed and will not receive any further data published to its event.
      * @param eventName Event to subscribe to.
      * @param callback The callback which should be called when the publish event is triggered.
-     * @returns {any} Subscriber
+     * @returns {any} Subscription if callback and eventName is provided. FALSE if there is an error
      */
     public subscribeOnce(eventName: string, callback: (data?: any) => any): Subscription|boolean {
         if (!this.isCallback(callback)) {

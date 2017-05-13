@@ -1,38 +1,176 @@
 RxPubSub
 =====
+1. [Description](#description)
+2. [Installation](#installation)
+3. [Usage](#usage)
+4. [Methods](#methods)
+5. [Git repository](#git)
+6. [Version](#version)
 
-1.  install the npm dependencies: 
-```
-npm install
-``` 
-2.  run the webpack server:
-```
-npm start
-```
-3. access the `index.html` file [http://localhost:8080/index.html](http://localhost:8080/index.html)
+### <a name="description"></a>Description
+`rx-pubsub` of `RxPubSub` is a "Publish and Subscribe" service 
+based on [RxJs ReplaySubject](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/replaysubject.md). 
 
-4. create in the console new `RxPubSub` object and check its methods and properties:
+### <a name="installation"></a>Installation
+Install the module into your application and save it as a dev 
+dependency in your `package.json` file  
 ```
-var pubsub = new RxPubSub();
+npm install rx-pubsub --save-dev
+```
+
+### <a name="usage"></a>Usage
+In order to use the `RxPubSub` service you have to include/import 
+it into your application:
+
+```
+import {RxPubSub} from "rx-pubsub";
+//or
+var RxPubSub = require("rx-pubsub");
+```
+
+If you want to use it in a plain/vanilla Javascript project the you 
+might just include the js file into your html/page application:
+```
+<script type="application/javascript" src="./node_modules/rx-pubsub/dist/rx-pubsub.min.js"></script>
+```
+
+Create new RxPubSub object and use it.
+#### Example
+```
+var pubsub = new RxPubSub(); // create new RxPubSub Object
 var eventName = 'testEvent';
+  
+console.log('register 1st subscriber to the event');
 var sub1 = pubsub.subscribe(eventName, (data) => {
     console.log('1st subscriber receives data: ', data);
-});
+});  
+console.log('register 2nd subscriber to the same event');
 var sub2 = pubsub.subscribe(eventName, (data) => {
     console.log('2nd subscriber receives data: ', data);
 });
-
+  
+console.log('publish data to the event');
 pubsub.publish(eventName, {testProp: 'test Value'});
-
-// 1st subscriber receives data: 
-// Object {testProp: "test Value"}
-// 2nd subscriber receives data: 
-// Object {testProp: "test Value"}
-
+  
+console.log('register 3rd subscriber to the same event');
 var sub3 = pubsub.subscribe(eventName, (data) => {
     console.log('3rd subscriber receives data: ', data);
 });
 
-// 3rd subscriber receives data:
-// Object {testProp: "test Value"}
+
 ```
+
+#### Output
+```
+register 1st subscriber to the event
+register 2nd subscriber to the same event
+publish data to the event
+  
+1st subscriber receives data: 
+Object {testProp: "test Value"}
+  
+2nd subscriber receives data: 
+Object {testProp: "test Value"}
+  
+register 3rd subscriber to the same event
+  
+3rd subscriber receives data:
+Object {testProp: "test Value"}
+```
+
+### <a name="methods"></a>Methods
+
+#### publish(eventName: string, data: any, previousMessagesNr: number = 1)
+Publish data to an event  
+  
+*Parameters:*  
+**eventName** - Event which should be fired  
+**data** - Data sent to all Subscribers of the event  
+**previousMessagesNr** - Maximum element count of the replay 
+buffer  
+  
+*Return:*  
+Method returns `RxPubSub` *this* object.
+
+#### subscribe(eventName: string, callback: (data?: any) => any, previousMessagesNr: number = 1)
+Register a new subscriber/callback to an event  
+  
+*Parameters:*  
+**eventName** - Event to subscribe to  
+**callback** - Callback to be called when the eventName is 
+fired  
+**previousMessagesNr** - Maximum element count of the replay 
+buffer  
+  
+*Return:*  
+Method returns Subscription if `callback` and `eventName` is 
+provided. **FALSE** if there is an error.
+
+#### subscribeOnce(eventName: string, callback: (data?: any) => any)
+Subscribe to an event only one single time.  
+After the first publish the Subscriber will be destroyed and 
+will not receive any further data published to its `eventName`.  
+  
+*Parameters:*  
+**eventName** - Event to subscribe to  
+**callback** - Callback to be called when the eventName is 
+fired  
+**previousMessagesNr** - Maximum element count of the replay 
+buffer  
+  
+*Return:*  
+Method returns Subscription if `callback` and `eventName` is 
+provided. **FALSE** if there is an error.
+
+#### unsubscribe(subscriber: Subscription)
+Unsubscribe a Subscriber from the event.    
+  
+*Parameters:*  
+**subscriber** - the Subscriber which should be 
+destroyed/unsubscribed  
+  
+*Return:*  
+Method returns `RxPubSub` *this* object.
+
+#### dispose(eventName: string)
+Unsubscribe all observers from the event and release resources. 
+  
+*Parameters:*  
+**eventName** - event which should be destroyed.  
+  
+*Return:*  
+Method returns `RxPubSub` *this* object.
+
+#### hasSubscribers(eventName: string)
+Check if a Subject attached to the event `eventName` has 
+Subscribers.  
+  
+*Parameters:*  
+**eventName** - Name of the event to be checked if it 
+has Subscribers.  
+  
+*Return:*  
+Method returns `boolean`:  
+*true* - if there is at least one Subscriber  
+*false* - if there are no Subscribers at all
+
+#### getEvents()
+Retrieve the entire list of the events and 
+the Subjects attached to them.  
+  
+*Return:*  
+Method returns an `Object` which contains the list of the
+events and the Subjects attached to them.
+
+#### getSubjects()
+An alias for the `getEvents()` method.    
+  
+*Return:*  
+Method returns an `Object` which contains the list of the
+events and the Subjects attached to them.
+
+### <a name="git"></a>Git repository
+[https://github.com/t0w5a/rx-pubsub](https://github.com/t0w5a/rx-pubsub)
+
+### <a name="version"></a>Version
+0.0.1
