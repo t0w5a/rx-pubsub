@@ -1,4 +1,4 @@
-/*! version: "0.0.2" */
+/*! version: "0.0.3" */
 (function webpackUniversalModuleDefinition(root, factory) {
     if (typeof exports === "object" && typeof module === "object") module.exports = factory(); else if (typeof define === "function" && define.amd) define([], factory); else {
         var a = factory();
@@ -57,7 +57,7 @@
             canDefineProperty = true;
         } catch (x) {}
         var hotApplyOnUpdate = true;
-        var hotCurrentHash = "b2675c47adf42d12228d";
+        var hotCurrentHash = "8fd4be71ab83af84f263";
         var hotCurrentModuleData = {};
         var hotCurrentParents = [];
         function hotCreateRequire(moduleId) {
@@ -495,7 +495,9 @@
                 return subscriber;
             };
             RxPubSub.prototype.unsubscribe = function(subscriber) {
-                subscriber.unsubscribe();
+                if (subscriber) {
+                    subscriber.unsubscribe();
+                }
                 return this;
             };
             RxPubSub.prototype.dispose = function(eventName) {

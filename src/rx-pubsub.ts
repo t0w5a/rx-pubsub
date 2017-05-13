@@ -70,7 +70,9 @@ export class RxPubSub {
      * @returns {RxPubSub}
      */
     public unsubscribe(subscriber: Subscription): RxPubSub {
-        subscriber.unsubscribe();
+        if (subscriber) {
+            subscriber.unsubscribe();
+        }
 
         return this;
     }

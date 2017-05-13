@@ -21,13 +21,13 @@ export as namespace RxPubSub;
  */
 declare namespace RxPubSub {
     export class RxPubSub {
-        public publish(eventName: string, data: any, previousMessagesNr: number = 1): RxPubSub;
+        public publish(eventName: string, data: any, previousMessagesNr: number): RxPubSub;
 
-        public subscribe(eventName: string, callback: (data?: any) => any, previousMessagesNr: number = 1): Subscription|boolean;
+        public subscribe(eventName: string, callback: (data?: any) => any, previousMessagesNr: number): any;
 
-        public subscribeOnce(eventName: string, callback: (data?: any) => any): Subscription|boolean;
+        public subscribeOnce(eventName: string, callback: (data?: any) => any): any;
 
-        public unsubscribe(subscriber: Subscription): RxPubSub;
+        public unsubscribe(subscriber: any): RxPubSub;
 
         public dispose(eventName: string): RxPubSub;
 
