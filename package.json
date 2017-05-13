@@ -1,5 +1,5 @@
 {
-  "name": "RxPubSub",
+  "name": "rx-pubsub",
   "version": "0.0.1",
   "description": "PubSub service based on RxJs ReplaySubject",
   "main": "dist/rx-pubsub.min.js",
@@ -11,8 +11,16 @@
     "clean": "rimraf build",
     "test": "karma start"
   },
-  "author": "",
-  "license": "",
+  "author": {
+    "name": "t0w5a",
+    "email": "t0w5a@tomsa.md",
+    "url": "https://github.com/t0w5a"
+  },
+  "repository": "t0w5a/rx-pubsub",
+  "licenses": [ {
+    "type": "MIT",
+    "url": "https://github.com/t0w5a/rx-pubsub/blob/master/LICENSE"
+  } ],
   "dependencies": {},
   "devDependencies": {
     "@types/jasmine": "^2.5.38",

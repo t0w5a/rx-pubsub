@@ -2,7 +2,7 @@ import {ReplaySubject} from 'rxjs/ReplaySubject';
 import {Subscription} from "rxjs/Subscription";
 
 /**
- * PubSub service based on RxJs ReplaySubject
+ * PubSub service based on RxJs ReplaySubject https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/replaysubject.md
  */
 export class RxPubSub {
     /**
@@ -86,10 +86,40 @@ export class RxPubSub {
             delete this.events[eventName];
         }
         else {
-            console.warn('The event ['+eventName+'] doesn\'t exist!');
+            console.warn('The event [' + eventName + '] doesn\'t exist!');
         }
 
         return this;
+    }
+
+    /**
+     * Check if a Subject attached to an Event (eventName) has Subscribers
+     * @param eventName Name of the event to be checked if it has Subscribers.
+     * @returns {boolean} true - if there is at least one Subscriber. false - if there are no Subscribers at all
+     */
+    public hasSubscribers(eventName: string): boolean {
+        let result = false;
+        if (this.events[eventName] && this.events[eventName].hasObservers()) {
+            result = true;
+        }
+
+        return result;
+    }
+
+    /**
+     * Retrieve the entire list of the events and the Subjects attached to them
+     * @returns {any} Object which contains the list of events and the Subjects attached to them
+     */
+    public getEvents(): any {
+        return this.events;
+    }
+
+    /**
+     * Alias of the method getEvents()
+     * @returns {any}
+     */
+    public getSubjects(): any {
+        return this.getEvents();
     }
 
     /**

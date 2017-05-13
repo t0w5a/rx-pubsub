@@ -30,6 +30,12 @@ declare namespace RxPubSub {
         public unsubscribe(subscriber: Subscription): RxPubSub;
 
         public dispose(eventName: string): RxPubSub;
+
+        public hasSubscribers(eventName: string): boolean;
+
+        public getEvents(): any;
+
+        public getSubjects(): any;
     }
 }
 

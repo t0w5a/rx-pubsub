@@ -9,7 +9,7 @@ module.exports = {
         libraryTarget: 'umd',
         umdNamedDefine: true,
         // name of the global var: 'Hermes'
-        filename: 'rx-pubsub.js',
+        filename: 'rx-pubsub.min.js',
         path: path.join(__dirname, 'dist'),
         publicPath: '/static/'
     },
