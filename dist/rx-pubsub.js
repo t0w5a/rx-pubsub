@@ -1,4 +1,4 @@
-/*! version: "0.0.4" */
+/*! version: "0.0.5" */
 (function webpackUniversalModuleDefinition(root, factory) {
     if (typeof exports === "object" && typeof module === "object") module.exports = factory(); else if (typeof define === "function" && define.amd) define([], factory); else {
         var a = factory();
