@@ -135,6 +135,28 @@ destroyed/unsubscribed
 Method returns `RxPubSub` *this* object.
   
   
+As the `subscribe()` and `subscribeOnce()` methods returns back the [RxJs/Subscription](https://github.com/ReactiveX/rxjs/blob/master/doc/subscription.md) 
+object you can use its available methods. The most important thing is the `unsubscribe()` 
+method provided directly by the [RxJs/Subscription](https://github.com/ReactiveX/rxjs/blob/master/doc/subscription.md).  
+Hence, if you have the Subscription object:
+```
+var pubsub = new RxPubSub(); // create new RxPubSub Object
+var eventName = 'testEvent';
+  
+var subscription = pubsub.subscribe(eventName, (data) => {
+    console.log('received data: ', data);
+});  
+```
+you can unsubscribe it using the `RxPubSub` method:
+```
+pubsub.unsubscribe(subscription);
+```
+or using the `rxjs/Subscription` method:
+```
+subscription.unsubscribe();
+```
+  
+  
 #### dispose(eventName: string)
 Unsubscribe all observers from the event and release resources. 
   
@@ -180,4 +202,4 @@ events and the Subjects attached to them.
 [https://github.com/t0w5a/rx-pubsub](https://github.com/t0w5a/rx-pubsub)
 
 ### <a name="version"></a>6. Version
-0.0.5
+0.0.6
