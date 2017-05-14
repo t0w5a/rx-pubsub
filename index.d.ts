@@ -2,8 +2,6 @@
 // Project: RxPubSub
 // Definitions by: tomsa.md
 
-import {Subscription} from "rxjs/Subscription";
-
 /*~ If this module is a UMD module that exposes a global variable 'myClassLib' when
  *~ loaded outside a module loader environment, declare that global here.
  *~ Otherwise, delete this declaration.
@@ -23,9 +21,9 @@ declare namespace RxPubSub {
     export class RxPubSub {
         public publish(eventName: string, data: any, previousMessagesNr?: number): RxPubSub;
 
-        public subscribe(eventName: string, callback: (data?: any) => any, previousMessagesNr?: number): any;
+        public subscribe(eventName: string, callback: (data?: any) => any, previousMessagesNr?: number): Subscription|boolean;
 
-        public subscribeOnce(eventName: string, callback: (data?: any) => any): any;
+        public subscribeOnce(eventName: string, callback: (data?: any) => any): Subscription|boolean;
 
         public unsubscribe(subscriber: any): RxPubSub;
 
@@ -37,6 +35,12 @@ declare namespace RxPubSub {
 
         public getSubjects(): any;
     }
+
+    export class Subscription {
+        public unsubscribe(): void;
+    }
+    ;
 }
 
 export = RxPubSub;
+
