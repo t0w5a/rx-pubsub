@@ -15,7 +15,6 @@ import {Subscription} from 'rxjs/Subscription';
  *~ is the exported object from the file
  */
 
-
 /*~ If you want to expose types from your module as well, you can
  *~ place them in this block.
  */
