@@ -1,6 +1,6 @@
 {
   "name": "rx-pubsub",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "PubSub service based on RxJs ReplaySubject",
   "main": "dist/rx-pubsub.min.js",
   "types": "index.d.ts",
@@ -17,10 +17,12 @@
     "url": "https://github.com/t0w5a"
   },
   "repository": "t0w5a/rx-pubsub",
-  "licenses": [ {
-    "type": "MIT",
-    "url": "https://github.com/t0w5a/rx-pubsub/blob/master/LICENSE"
-  } ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/t0w5a/rx-pubsub/blob/master/LICENSE"
+    }
+  ],
   "keywords": [
     "rx-pubsub",
     "rx-pub-sub",
@@ -39,6 +41,7 @@
     "@types/jasmine": "^2.5.38",
     "@types/node": "^6.0.52",
     "@types/uuid": "^2.0.29",
+    "compression-webpack-plugin": "^0.4.0",
     "istanbul-instrumenter-loader": "^1.1.0",
     "jasmine-ajax": "^3.3.1",
     "jasmine-core": "^2.5.2",

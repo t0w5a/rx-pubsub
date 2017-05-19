@@ -1,6 +1,7 @@
 var webpack = require('webpack'),
     path = require('path'),
     VERSION = JSON.stringify(require("./package.json").version);
+var CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
     entry: './src/rx-pubsub.ts',
@@ -29,7 +30,14 @@ module.exports = {
         new webpack.DefinePlugin({
             __VERSION__: VERSION
         }),
-        new webpack.BannerPlugin('version: ' + VERSION, {raw: false, entryOnly: true})
+        new webpack.BannerPlugin('version: ' + VERSION, {raw: false, entryOnly: true}),
+        new CompressionPlugin({
+            asset: "[path].gz[query]",
+            algorithm: "gzip",
+            test: /\.(js|html)$/,
+            threshold: 10240,
+            minRatio: 0.8
+        })
     ],
     module: {
         loaders: [
