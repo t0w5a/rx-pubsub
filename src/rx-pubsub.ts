@@ -84,7 +84,7 @@ export class RxPubSub {
      */
     public dispose(eventName: string): RxPubSub {
         if (this.events[eventName]) {
-            this.events[eventName].unsubscribe();
+            this.getSubjectByEventName(eventName).unsubscribe();
             delete this.events[eventName];
         }
         else {
@@ -101,7 +101,7 @@ export class RxPubSub {
      */
     public hasSubscribers(eventName: string): boolean {
         let result = false;
-        if (this.events[eventName] && this.events[eventName].hasObservers()) {
+        if (this.events[eventName] && this.getSubjectByEventName(eventName).observers.length > 0) {
             result = true;
         }
 
@@ -130,7 +130,7 @@ export class RxPubSub {
      * @param previousMessagesNr Maximum element count of the replay buffer
      * @returns {any}
      */
-    private getSubjectByEventName(eventName: string, previousMessagesNr: number = 1): ReplaySubject<any> {
+    protected getSubjectByEventName(eventName: string, previousMessagesNr: number = 1): ReplaySubject<any> {
         // create new Subject if there is not such thing for the specified eventName
         if (!this.events[eventName]) {
             this.events[eventName] = new ReplaySubject(previousMessagesNr);
@@ -144,7 +144,7 @@ export class RxPubSub {
      * @param callback Function to be checked
      * @returns {boolean} true is the parameter is a function. false - if the parameter is not a function
      */
-    private isCallback(callback: (data?: any) => any): boolean {
+    protected isCallback(callback: (data?: any) => any): boolean {
         if (!callback || typeof callback !== 'function') {
             console.warn('Callback is missing! Subscription cancelled!');
 
