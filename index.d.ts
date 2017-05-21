@@ -39,9 +39,10 @@ declare class RxPubSub {
 
     public getSubjects(): any;
 
-    protected getSubjectByEventName(eventName: string, previousMessagesNr: number = 1): ReplaySubject<any>;
+    protected getSubjectByEventName(eventName: string, previousMessagesNr: number): ReplaySubject<any>;
 
     protected isCallback(callback: (data?: any) => any): boolean;
+
 }
 
 export {RxPubSub, Subscription};
