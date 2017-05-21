@@ -9,7 +9,7 @@ export class RxPubSub {
      * Object which stores all the events and their ReplaySubject subscriptions registered by the service
      * @type {{}} Object
      */
-    private events: any = {};
+    protected events: any = {};
 
     /**
      * Publish data to an event
