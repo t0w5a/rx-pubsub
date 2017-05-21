@@ -2,6 +2,7 @@
 // Project: RxPubSub
 // Definitions by: tomsa.md
 
+import {ReplaySubject} from 'rxjs/ReplaySubject'
 import {Subscription} from 'rxjs/Subscription';
 
 /*~ If this module is a UMD module that exposes a global variable 'myClassLib' when
@@ -20,6 +21,8 @@ import {Subscription} from 'rxjs/Subscription';
  */
 
 declare class RxPubSub {
+    protected events: any;
+
     public publish(eventName: string, data: any, previousMessagesNr?: number): RxPubSub;
 
     public subscribe(eventName: string, callback: (data?: any) => any, previousMessagesNr?: number): Subscription;
@@ -35,6 +38,10 @@ declare class RxPubSub {
     public getEvents(): any;
 
     public getSubjects(): any;
+
+    protected getSubjectByEventName(eventName: string, previousMessagesNr: number = 1): ReplaySubject<any>;
+
+    protected isCallback(callback: (data?: any) => any): boolean;
 }
 
 export {RxPubSub, Subscription};
