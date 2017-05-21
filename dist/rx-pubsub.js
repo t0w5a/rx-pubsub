@@ -1,4 +1,4 @@
-/*! version: "0.0.7" */
+/*! version: "0.0.8" */
 (function webpackUniversalModuleDefinition(root, factory) {
     if (typeof exports === "object" && typeof module === "object") module.exports = factory(); else if (typeof define === "function" && define.amd) define([], factory); else {
         var a = factory();
@@ -57,7 +57,7 @@
             canDefineProperty = true;
         } catch (x) {}
         var hotApplyOnUpdate = true;
-        var hotCurrentHash = "8fd4be71ab83af84f263";
+        var hotCurrentHash = "d6fe862e0b0f3bfcd0bd";
         var hotCurrentModuleData = {};
         var hotCurrentParents = [];
         function hotCreateRequire(moduleId) {
@@ -502,7 +502,7 @@
             };
             RxPubSub.prototype.dispose = function(eventName) {
                 if (this.events[eventName]) {
-                    this.events[eventName].unsubscribe();
+                    this.getSubjectByEventName(eventName).unsubscribe();
                     delete this.events[eventName];
                 } else {
                     console.warn("The event [" + eventName + "] doesn't exist!");
@@ -511,7 +511,7 @@
             };
             RxPubSub.prototype.hasSubscribers = function(eventName) {
                 var result = false;
-                if (this.events[eventName] && this.events[eventName].hasObservers()) {
+                if (this.events[eventName] && this.getSubjectByEventName(eventName).observers.length > 0) {
                     result = true;
                 }
                 return result;
