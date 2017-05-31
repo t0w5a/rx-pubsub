@@ -157,6 +157,16 @@ subscription.unsubscribe();
 ```
   
   
+#### unsubscribeAll(subscribers: Subscription[])
+Unsubscribe a list of Subscribers from the event    
+  
+*Parameters:*  
+**subscribers** - The list of subscribers which should be destroyed/unsubscribed  
+  
+*Return:*  
+Method returns `RxPubSub` *this* object.
+  
+  
 #### dispose(eventName: string)
 Unsubscribe all observers from the event and release resources. 
   
@@ -202,4 +212,4 @@ events and the Subjects attached to them.
 [https://github.com/t0w5a/rx-pubsub](https://github.com/t0w5a/rx-pubsub)
 
 ### <a name="version"></a>6. Version
-0.0.11
+0.1.0

@@ -1,4 +1,4 @@
-/*! version: "0.0.11" */
+/*! version: "0.1.0" */
 (function webpackUniversalModuleDefinition(root, factory) {
     if (typeof exports === "object" && typeof module === "object") module.exports = factory(); else if (typeof define === "function" && define.amd) define([], factory); else {
         var a = factory();
@@ -57,7 +57,7 @@
             canDefineProperty = true;
         } catch (x) {}
         var hotApplyOnUpdate = true;
-        var hotCurrentHash = "d6fe862e0b0f3bfcd0bd";
+        var hotCurrentHash = "71053e9fa9f09892623b";
         var hotCurrentModuleData = {};
         var hotCurrentParents = [];
         function hotCreateRequire(moduleId) {
@@ -500,6 +500,14 @@
                 }
                 return this;
             };
+            RxPubSub.prototype.unsubscribeAll = function(subscribers) {
+                if (subscribers) {
+                    subscribers.forEach(function(subscriber) {
+                        subscriber.unsubscribe();
+                    });
+                }
+                return this;
+            };
             RxPubSub.prototype.dispose = function(eventName) {
                 if (this.events[eventName]) {
                     this.getSubjectByEventName(eventName).unsubscribe();
@@ -881,17 +889,16 @@
     }, function(module, exports) {
         (function(global) {
             "use strict";
-            if (typeof window == "object" && window.window === window) {
-                exports.root = window;
-            } else if (typeof self == "object" && self.self === self) {
-                exports.root = self;
-            } else if (typeof global == "object" && global.global === global) {
-                exports.root = global;
-            } else {
-                (function() {
+            var __window = typeof window !== "undefined" && window;
+            var __self = typeof self !== "undefined" && typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope && self;
+            var __global = typeof global !== "undefined" && global;
+            var _root = __window || __global || __self;
+            exports.root = _root;
+            (function() {
+                if (!_root) {
                     throw new Error("RxJS could not find any global context (window, self, global)");
-                })();
-            }
+                }
+            })();
         }).call(exports, function() {
             return this;
         }());
@@ -1078,14 +1085,18 @@
                 }
             };
             SafeSubscriber.prototype.complete = function() {
+                var _this = this;
                 if (!this.isStopped) {
                     var _parentSubscriber = this._parentSubscriber;
                     if (this._complete) {
+                        var wrappedComplete = function() {
+                            return _this._complete.call(_this._context);
+                        };
                         if (!_parentSubscriber.syncErrorThrowable) {
-                            this.__tryOrUnsub(this._complete);
+                            this.__tryOrUnsub(wrappedComplete);
                             this.unsubscribe();
                         } else {
-                            this.__tryOrSetError(_parentSubscriber, this._complete);
+                            this.__tryOrSetError(_parentSubscriber, wrappedComplete);
                             this.unsubscribe();
                         }
                     } else {

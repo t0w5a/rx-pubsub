@@ -2,8 +2,8 @@
 // Project: RxPubSub
 // Definitions by: tomsa.md
 
-import {ReplaySubject} from 'rxjs/ReplaySubject'
-import {Subscription} from 'rxjs/Subscription';
+import { ReplaySubject } from 'rxjs/ReplaySubject'
+import { Subscription } from 'rxjs/Subscription';
 
 /*~ If this module is a UMD module that exposes a global variable 'myClassLib' when
  *~ loaded outside a module loader environment, declare that global here.
@@ -27,9 +27,11 @@ declare class RxPubSub {
 
     public subscribe(eventName: string, callback: (data?: any) => any, previousMessagesNr?: number): Subscription;
 
-    public subscribeOnce(eventName: string, callback: (data?: any) => any): Subscription|boolean;
+    public subscribeOnce(eventName: string, callback: (data?: any) => any): Subscription | boolean;
 
     public unsubscribe(subscriber: any): RxPubSub;
+
+    public unsubscribeAll(subscribers: Subscription[]): RxPubSub;
 
     public dispose(eventName: string): RxPubSub;
 
@@ -45,4 +47,4 @@ declare class RxPubSub {
 
 }
 
-export {RxPubSub, Subscription};
+export { RxPubSub, Subscription };

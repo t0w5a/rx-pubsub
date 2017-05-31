@@ -1,5 +1,5 @@
-import {ReplaySubject} from 'rxjs/ReplaySubject';
-import {Subscription} from "rxjs/Subscription";
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Subscription } from "rxjs/Subscription";
 
 /**
  * PubSub service based on RxJs ReplaySubject https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/subjects/replaysubject.md
@@ -32,7 +32,9 @@ export class RxPubSub {
      * @param previousMessagesNr Maximum element count of the replay buffer
      * @returns {any} Subscription if callback and eventName is provided. FALSE if there is an error
      */
-    public subscribe(eventName: string, callback: (data?: any) => any, previousMessagesNr: number = 1): Subscription|boolean {
+    public subscribe(eventName: string, callback: (data?: any) => any, previousMessagesNr: number = 1):
+        Subscription
+        | boolean {
         if (!this.isCallback(callback)) {
             return false;
         }
@@ -49,7 +51,7 @@ export class RxPubSub {
      * @param callback The callback which should be called when the publish event is triggered.
      * @returns {any} Subscription if callback and eventName is provided. FALSE if there is an error
      */
-    public subscribeOnce(eventName: string, callback: (data?: any) => any): Subscription|boolean {
+    public subscribeOnce(eventName: string, callback: (data?: any) => any): Subscription | boolean {
         if (!this.isCallback(callback)) {
             return false;
         }
@@ -72,6 +74,22 @@ export class RxPubSub {
     public unsubscribe(subscriber: Subscription): RxPubSub {
         if (subscriber) {
             subscriber.unsubscribe();
+        }
+
+        return this;
+    }
+
+    /**
+     * Unsubscribe a list of Subscribers from the event
+     * @param subscribers The list of subscribers which should be destroyed/unsubscribed
+     * @returns {RxPubSub}
+     */
+    public unsubscribeAll(subscribers: Subscription[]): RxPubSub {
+
+        if (subscribers) {
+            subscribers.forEach((subscriber: Subscription) => {
+                subscriber.unsubscribe();
+            });
         }
 
         return this;
