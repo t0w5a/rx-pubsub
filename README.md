@@ -212,4 +212,4 @@ events and the Subjects attached to them.
 [https://github.com/t0w5a/rx-pubsub](https://github.com/t0w5a/rx-pubsub)
 
 ### <a name="version"></a>6. Version
-0.1.1
+0.1.2
