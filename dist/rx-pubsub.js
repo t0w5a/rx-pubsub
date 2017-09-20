@@ -1,4 +1,4 @@
-/*! version: "0.1.2" */
+/*! version: "0.2.0" */
 (function webpackUniversalModuleDefinition(root, factory) {
     if (typeof exports === "object" && typeof module === "object") module.exports = factory(); else if (typeof define === "function" && define.amd) define([], factory); else {
         var a = factory();
@@ -57,7 +57,7 @@
             canDefineProperty = true;
         } catch (x) {}
         var hotApplyOnUpdate = true;
-        var hotCurrentHash = "293b80d2d4062d5bd680";
+        var hotCurrentHash = "0fbb6670d018b3ea178b";
         var hotCurrentModuleData = {};
         var hotCurrentParents = [];
         function hotCreateRequire(moduleId) {
@@ -463,83 +463,75 @@
         });
         var ReplaySubject_1 = __webpack_require__(1);
         var RxPubSub = function() {
-            function RxPubSub() {
-                this.events = {};
-            }
-            RxPubSub.prototype.publish = function(eventName, data, previousMessagesNr) {
+            function RxPubSub() {}
+            RxPubSub.publish = function(eventName, data, previousMessagesNr) {
                 if (previousMessagesNr === void 0) {
                     previousMessagesNr = 1;
                 }
-                this.getSubjectByEventName(eventName, previousMessagesNr).next(data);
-                return this;
+                RxPubSub.getSubjectByEventName(eventName, previousMessagesNr).next(data);
             };
-            RxPubSub.prototype.subscribe = function(eventName, callback, previousMessagesNr) {
+            RxPubSub.subscribe = function(eventName, callback, previousMessagesNr) {
                 if (previousMessagesNr === void 0) {
                     previousMessagesNr = 1;
                 }
-                if (!this.isCallback(callback)) {
+                if (!RxPubSub.isCallback(callback)) {
                     return false;
                 }
-                var subscriber = this.getSubjectByEventName(eventName, previousMessagesNr).subscribe(callback);
-                return subscriber;
+                return RxPubSub.getSubjectByEventName(eventName, previousMessagesNr).subscribe(callback);
             };
-            RxPubSub.prototype.subscribeOnce = function(eventName, callback) {
-                var _this = this;
-                if (!this.isCallback(callback)) {
+            RxPubSub.subscribeOnce = function(eventName, callback) {
+                if (!RxPubSub.isCallback(callback)) {
                     return false;
                 }
-                var subscriber = this.getSubjectByEventName(eventName).subscribe(function(data) {
+                var subscriber = RxPubSub.getSubjectByEventName(eventName).subscribe(function(data) {
                     callback(data);
-                    _this.unsubscribe(subscriber);
+                    RxPubSub.unsubscribe(subscriber);
                 });
                 return subscriber;
             };
-            RxPubSub.prototype.unsubscribe = function(subscriber) {
+            RxPubSub.unsubscribe = function(subscriber) {
                 if (subscriber) {
                     subscriber.unsubscribe();
                 }
-                return this;
             };
-            RxPubSub.prototype.unsubscribeAll = function(subscribers) {
+            RxPubSub.unsubscribeAll = function(subscribers) {
                 if (subscribers) {
                     subscribers.forEach(function(subscriber) {
                         subscriber.unsubscribe();
                     });
                 }
-                return this;
             };
-            RxPubSub.prototype.dispose = function(eventName) {
-                if (this.events[eventName]) {
-                    this.getSubjectByEventName(eventName).unsubscribe();
-                    delete this.events[eventName];
+            RxPubSub.dispose = function(eventName) {
+                if (RxPubSub.events[eventName]) {
+                    RxPubSub.getSubjectByEventName(eventName).unsubscribe();
+                    delete RxPubSub.events[eventName];
                 } else {
                     console.warn("The event [" + eventName + "] doesn't exist!");
                 }
-                return this;
             };
-            RxPubSub.prototype.hasSubscribers = function(eventName) {
+            RxPubSub.hasSubscribers = function(eventName) {
                 var result = false;
-                if (this.events[eventName] && this.getSubjectByEventName(eventName).observers.length > 0) {
+                if (RxPubSub.events[eventName] && RxPubSub.getSubjectByEventName(eventName).observers.length > 0) {
                     result = true;
                 }
                 return result;
             };
-            RxPubSub.prototype.getEvents = function() {
-                return this.events;
+            RxPubSub.getEvents = function() {
+                return RxPubSub.events;
             };
-            RxPubSub.prototype.getSubjects = function() {
-                return this.getEvents();
+            RxPubSub.getSubjects = function() {
+                return RxPubSub.getEvents();
             };
-            RxPubSub.prototype.getSubjectByEventName = function(eventName, previousMessagesNr) {
+            RxPubSub.getSubjectByEventName = function(eventName, previousMessagesNr) {
                 if (previousMessagesNr === void 0) {
                     previousMessagesNr = 1;
                 }
-                if (!this.events[eventName]) {
-                    this.events[eventName] = new ReplaySubject_1.ReplaySubject(previousMessagesNr);
+                if (!RxPubSub.events[eventName]) {
+                    RxPubSub.events[eventName] = new ReplaySubject_1.ReplaySubject(previousMessagesNr);
                 }
-                return this.events[eventName];
+                return RxPubSub.events[eventName];
             };
-            RxPubSub.prototype.isCallback = function(callback) {
+            RxPubSub.isCallback = function(callback) {
                 if (!callback || typeof callback !== "function") {
                     console.warn("Callback is missing! Subscription cancelled!");
                     return false;
@@ -548,6 +540,7 @@
             };
             return RxPubSub;
         }();
+        RxPubSub.events = {};
         exports.RxPubSub = RxPubSub;
     }, function(module, exports, __webpack_require__) {
         "use strict";

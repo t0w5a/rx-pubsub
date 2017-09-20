@@ -35,24 +35,23 @@ might just include the js file into your html/page application:
 Create new RxPubSub object and use it.  
   
 #### Example
-```typescript
-let pubsub = new RxPubSub(); // create new RxPubSub Object
+```javascript
 let eventName = 'testEvent';
   
 console.log('register 1st subscriber to the event');
-let sub1 = pubsub.subscribe(eventName, (data) => {
+let sub1 = RxPubSub.subscribe(eventName, (data) => {
     console.log('1st subscriber receives data: ', data);
 });  
 console.log('register 2nd subscriber to the same event');
-let sub2 = pubsub.subscribe(eventName, (data) => {
+let sub2 = RxPubSub.subscribe(eventName, (data) => {
     console.log('2nd subscriber receives data: ', data);
 });
   
 console.log('publish data to the event');
-pubsub.publish(eventName, {testProp: 'test Value'});
+RxPubSub.publish(eventName, {testProp: 'test Value'});
   
 console.log('register 3rd subscriber to the same event');
-let sub3 = pubsub.subscribe(eventName, (data) => {
+let sub3 = RxPubSub.subscribe(eventName, (data) => {
     console.log('3rd subscriber receives data: ', data);
 });
 
@@ -89,7 +88,7 @@ Publish data to an event
 buffer  
   
 *Return:*  
-Method returns `RxPubSub` *this* object.
+Method returns `void`.
   
   
 #### subscribe(eventName: string, callback: (data?: any) => any, previousMessagesNr: number = 1)
@@ -132,27 +131,26 @@ Unsubscribe a Subscriber from the event.
 destroyed/unsubscribed  
   
 *Return:*  
-Method returns `RxPubSub` *this* object.
+Method returns `void`.
   
   
 As the `subscribe()` and `subscribeOnce()` methods returns back the [RxJs/Subscription](https://github.com/ReactiveX/rxjs/blob/master/doc/subscription.md) 
 object you can use its available methods. The most important thing is the `unsubscribe()` 
 method provided directly by the [RxJs/Subscription](https://github.com/ReactiveX/rxjs/blob/master/doc/subscription.md).  
 Hence, if you have the Subscription object:
-```typescript
-let pubsub = new RxPubSub(); // create new RxPubSub Object
+```javascript
 let eventName = 'testEvent';
   
-let subscription = pubsub.subscribe(eventName, (data) => {
+let subscription = RxPubSub.subscribe(eventName, (data) => {
     console.log('received data: ', data);
 });  
 ```
 you can unsubscribe it using the `RxPubSub` method:
-```typescript
-pubsub.unsubscribe(subscription);
+```javascript
+RxPubSub.unsubscribe(subscription);
 ```
 or using the `rxjs/Subscription` method:
-```typescript
+```javascript
 subscription.unsubscribe();
 ```
   
@@ -164,7 +162,7 @@ Unsubscribe a list of Subscribers from the event
 **subscribers** - The list of subscribers which should be destroyed/unsubscribed  
   
 *Return:*  
-Method returns `RxPubSub` *this* object.
+Method returns `void`.
   
   
 #### dispose(eventName: string)
@@ -174,7 +172,7 @@ Unsubscribe all observers from the event and release resources.
 **eventName** - event which should be destroyed.  
   
 *Return:*  
-Method returns `RxPubSub` *this* object.
+Method returns `void`.
   
   
 #### hasSubscribers(eventName: string)
@@ -212,4 +210,4 @@ events and the Subjects attached to them.
 [https://github.com/t0w5a/rx-pubsub](https://github.com/t0w5a/rx-pubsub)
 
 ### <a name="version"></a>6. Version
-0.1.2
+0.2.0
