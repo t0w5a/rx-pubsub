@@ -1,4 +1,4 @@
-/*! version: "0.2.0" */
+/*! version: "0.2.1" */
 (function webpackUniversalModuleDefinition(root, factory) {
     if (typeof exports === "object" && typeof module === "object") module.exports = factory(); else if (typeof define === "function" && define.amd) define([], factory); else {
         var a = factory();
@@ -57,7 +57,7 @@
             canDefineProperty = true;
         } catch (x) {}
         var hotApplyOnUpdate = true;
-        var hotCurrentHash = "0fbb6670d018b3ea178b";
+        var hotCurrentHash = "7d20f1a2d69ae69bb872";
         var hotCurrentModuleData = {};
         var hotCurrentParents = [];
         function hotCreateRequire(moduleId) {
@@ -468,24 +468,25 @@
                 if (previousMessagesNr === void 0) {
                     previousMessagesNr = 1;
                 }
-                RxPubSub.getSubjectByEventName(eventName, previousMessagesNr).next(data);
+                this.getSubjectByEventName(eventName, previousMessagesNr).next(data);
             };
             RxPubSub.subscribe = function(eventName, callback, previousMessagesNr) {
                 if (previousMessagesNr === void 0) {
                     previousMessagesNr = 1;
                 }
-                if (!RxPubSub.isCallback(callback)) {
+                if (!this.isCallback(callback)) {
                     return false;
                 }
-                return RxPubSub.getSubjectByEventName(eventName, previousMessagesNr).subscribe(callback);
+                return this.getSubjectByEventName(eventName, previousMessagesNr).subscribe(callback);
             };
             RxPubSub.subscribeOnce = function(eventName, callback) {
-                if (!RxPubSub.isCallback(callback)) {
+                var _this = this;
+                if (!this.isCallback(callback)) {
                     return false;
                 }
-                var subscriber = RxPubSub.getSubjectByEventName(eventName).subscribe(function(data) {
+                var subscriber = this.getSubjectByEventName(eventName).subscribe(function(data) {
                     callback(data);
-                    RxPubSub.unsubscribe(subscriber);
+                    _this.unsubscribe(subscriber);
                 });
                 return subscriber;
             };
@@ -502,34 +503,34 @@
                 }
             };
             RxPubSub.dispose = function(eventName) {
-                if (RxPubSub.events[eventName]) {
-                    RxPubSub.getSubjectByEventName(eventName).unsubscribe();
-                    delete RxPubSub.events[eventName];
+                if (this.events[eventName]) {
+                    this.getSubjectByEventName(eventName).unsubscribe();
+                    delete this.events[eventName];
                 } else {
                     console.warn("The event [" + eventName + "] doesn't exist!");
                 }
             };
             RxPubSub.hasSubscribers = function(eventName) {
                 var result = false;
-                if (RxPubSub.events[eventName] && RxPubSub.getSubjectByEventName(eventName).observers.length > 0) {
+                if (this.events[eventName] && this.getSubjectByEventName(eventName).observers.length > 0) {
                     result = true;
                 }
                 return result;
             };
             RxPubSub.getEvents = function() {
-                return RxPubSub.events;
+                return this.events;
             };
             RxPubSub.getSubjects = function() {
-                return RxPubSub.getEvents();
+                return this.getEvents();
             };
             RxPubSub.getSubjectByEventName = function(eventName, previousMessagesNr) {
                 if (previousMessagesNr === void 0) {
                     previousMessagesNr = 1;
                 }
-                if (!RxPubSub.events[eventName]) {
-                    RxPubSub.events[eventName] = new ReplaySubject_1.ReplaySubject(previousMessagesNr);
+                if (!this.events[eventName]) {
+                    this.events[eventName] = new ReplaySubject_1.ReplaySubject(previousMessagesNr);
                 }
-                return RxPubSub.events[eventName];
+                return this.events[eventName];
             };
             RxPubSub.isCallback = function(callback) {
                 if (!callback || typeof callback !== "function") {

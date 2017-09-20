@@ -1,6 +1,6 @@
 {
   "name": "rx-pubsub",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "PubSub service based on RxJs ReplaySubject",
   "main": "dist/rx-pubsub.min.js",
   "types": "index.d.ts",

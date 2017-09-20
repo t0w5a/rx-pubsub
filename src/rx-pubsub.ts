@@ -19,7 +19,7 @@ export class RxPubSub {
    */
   static publish(eventName: string, data: any, previousMessagesNr: number = 1): void {
     // publish data on the specified eventName
-    RxPubSub.getSubjectByEventName(eventName, previousMessagesNr).next(data);
+    this.getSubjectByEventName(eventName, previousMessagesNr).next(data);
   }
 
   /**
@@ -31,11 +31,11 @@ export class RxPubSub {
    */
   static subscribe(eventName: string, callback: (data?: any) => any, previousMessagesNr: number = 1): Subscription
     | boolean {
-    if (!RxPubSub.isCallback(callback)) {
+    if (!this.isCallback(callback)) {
       return false;
     }
 
-    return RxPubSub.getSubjectByEventName(eventName, previousMessagesNr).subscribe(callback);
+    return this.getSubjectByEventName(eventName, previousMessagesNr).subscribe(callback);
   }
 
   /**
@@ -46,14 +46,14 @@ export class RxPubSub {
    * @returns {any} Subscription if callback and eventName is provided. FALSE if there is an error
    */
   static subscribeOnce(eventName: string, callback: (data?: any) => any): Subscription | boolean {
-    if (!RxPubSub.isCallback(callback)) {
+    if (!this.isCallback(callback)) {
       return false;
     }
 
-    let subscriber = RxPubSub.getSubjectByEventName(eventName).subscribe(
+    let subscriber = this.getSubjectByEventName(eventName).subscribe(
       (data: any) => {
         callback(data);
-        RxPubSub.unsubscribe(subscriber);
+        this.unsubscribe(subscriber);
       }
     );
 
@@ -88,9 +88,9 @@ export class RxPubSub {
    * @param eventName event which should be destroyed.
    */
   static dispose(eventName: string): void {
-    if (RxPubSub.events[eventName]) {
-      RxPubSub.getSubjectByEventName(eventName).unsubscribe();
-      delete RxPubSub.events[eventName];
+    if (this.events[eventName]) {
+      this.getSubjectByEventName(eventName).unsubscribe();
+      delete this.events[eventName];
     }
     else {
       console.warn('The event [' + eventName + '] doesn\'t exist!');
@@ -104,7 +104,7 @@ export class RxPubSub {
    */
   static hasSubscribers(eventName: string): boolean {
     let result = false;
-    if (RxPubSub.events[eventName] && RxPubSub.getSubjectByEventName(eventName).observers.length > 0) {
+    if (this.events[eventName] && this.getSubjectByEventName(eventName).observers.length > 0) {
       result = true;
     }
 
@@ -116,7 +116,7 @@ export class RxPubSub {
    * @returns {any} Object which contains the list of events and the Subjects attached to them
    */
   static getEvents(): any {
-    return RxPubSub.events;
+    return this.events;
   }
 
   /**
@@ -124,7 +124,7 @@ export class RxPubSub {
    * @returns {any}
    */
   static getSubjects(): any {
-    return RxPubSub.getEvents();
+    return this.getEvents();
   }
 
   /**
@@ -135,11 +135,11 @@ export class RxPubSub {
    */
   static getSubjectByEventName(eventName: string, previousMessagesNr: number = 1): ReplaySubject<any> {
     // create new Subject if there is not such thing for the specified eventName
-    if (!RxPubSub.events[eventName]) {
-      RxPubSub.events[eventName] = new ReplaySubject(previousMessagesNr);
+    if (!this.events[eventName]) {
+      this.events[eventName] = new ReplaySubject(previousMessagesNr);
     }
 
-    return RxPubSub.events[eventName];
+    return this.events[eventName];
   }
 
   /**

@@ -55,7 +55,6 @@ let sub3 = RxPubSub.subscribe(eventName, (data) => {
     console.log('3rd subscriber receives data: ', data);
 });
 
-
 ```
 
 #### Output
@@ -210,4 +209,4 @@ events and the Subjects attached to them.
 [https://github.com/t0w5a/rx-pubsub](https://github.com/t0w5a/rx-pubsub)
 
 ### <a name="version"></a>6. Version
-0.2.0
+0.2.1
